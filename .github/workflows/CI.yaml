@@ -1,0 +1,22 @@
+name: CI
+
+on:
+  push:
+
+jobs: 
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v5
+      
+      - name: Build & Test
+        run: |
+          docker build -t malam_test .
+          docker run -p 3000:3000 malam_test --name malam_run
+          sleep 10
+          curl localhost:3000
+          echo "add status code if not 200ok"
+          docker stop malam_run
+
+      
