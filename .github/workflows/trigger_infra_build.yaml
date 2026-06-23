@@ -20,8 +20,7 @@ jobs:
             token: ${{ secrets.GH_TOKEN}}
             repository: meditator3/trigger_tf_mlm
             event-type: dispatch_tf
-            ref: "master"
-            inputs: '{ "service": "mlm_test", "revision": "${{ github.sha }}"}'
+            client-payload: '{ "service": "mlm_test", "revision": "${{ github.sha }}"}'
             
         - name: Just show dispatch worked
           run: |
