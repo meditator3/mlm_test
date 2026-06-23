@@ -31,7 +31,7 @@ jobs:
 
       - name: Tag image before Push
         run: |
-          docker tag malam_test:latest pathlesswalker/malam_test:${{github.sha }}
+          docker tag malam_test:latest pathlesswalker/malam_test:${{ github.sha }}
       
       - name: login to DockerHub
         uses: docker/login-action@v4
