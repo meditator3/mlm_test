@@ -15,7 +15,7 @@ jobs:
           docker build -t malam_test .
           docker run -d -p 3000:3000 --name malam_run malam_test 
           sleep 10
-          STATUS_CODE=$(curl --silent --output --write-out "${http_code} http://localhost:3000 
+          STATUS_CODE=$(curl --silent --output /dev/null --write-out "%{http_code}" http://localhost:3000)
           if [ $STATUS_CODE -ne 200 ]
           then
             docker stop malam_run
