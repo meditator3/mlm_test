@@ -1,3 +1,46 @@
+(read about the app itself below)
+This is a Terraform deployment via push of node js app.
+PROCESS
+---
+CI from workflow builds, test if container is still running, and pushes to docker hub if it does. 
+each push has a unique githab hash tag.
+After push, the CI triggers workflow dispatch of this repo: https://github.com/meditator3/trigger_tf_mlm
+which grabs the image tag and parses it later on.
+the dispatched Terraform repo builds all aws resources - eks, vpc/private/pub subnets/nat/igw, 
+including a helm chart custom made which uses the image tag and pulls the current/latest image from dockerhub.
+the helm chart has deployment for the app, service and ingress>which builds the alb in return.
+at the end of the terraform and the helm deplymend(CD), also terraform triggered, an output of the ip
+of the alb is printed in the logs of CD for /etc/hosts routing locally.
+
+this deployment is without ACM and https, because it requires to buy the domain.
+in order to see the app itself and the changes:
+(in windows)
+edit as admin-
+windows/system32/drivers/etc/hosts
+<ip of alb from tf log> demoapp.com
+
+<img width="3802" height="1957" alt="demoapp-proof" src="https://github.com/user-attachments/assets/09099e74-1072-499f-a616-d5d08bdf9e74" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Node.js Demo Application
 Node.js basic application useful for demos and examples
 
